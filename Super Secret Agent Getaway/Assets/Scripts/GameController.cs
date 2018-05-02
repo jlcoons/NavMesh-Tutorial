@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
+    public HUDScript hudScript;
     private int round = 0;
     private float[] scores = new float[3];
 
@@ -15,5 +16,6 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         scores[round] += Time.deltaTime;
+        hudScript.IncrementScore(scores[round]);
 	}
 }
