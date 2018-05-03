@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    public GameController gameController;
     public float speed;
     public Camera cam;
 
@@ -34,4 +35,13 @@ public class PlayerController : MonoBehaviour {
             Cursor.lockState = CursorLockMode.None;
         }
 	}
+
+    private void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Enemy")
+        {
+            print("Collision!");
+            gameController.EndRound();
+        }
+    }
 }

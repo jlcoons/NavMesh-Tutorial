@@ -5,11 +5,25 @@ using UnityEngine.UI;
 
 public class HUDScript : MonoBehaviour {
 
+    public static HUDScript HUDInstance = null;
     public Text scoreText;
 
-	// Use this for initialization
-	void Start () {
-		
+    private void Awake()
+    {
+        if (HUDInstance == null)
+        {
+            HUDInstance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    // Use this for initialization
+    void Start () {
+        
 	}
 	
 	// Update is called once per frame
@@ -17,8 +31,8 @@ public class HUDScript : MonoBehaviour {
 		
 	}
 
-    public void IncrementScore(float time)
+    public void IncrementScore(int round, float time)
     {
-        scoreText.text = string.Format("Score: {0}", (int)time);
+        scoreText.text = string.Format("Round {0} Score: {1}", round, (int)time);
     }
 }
