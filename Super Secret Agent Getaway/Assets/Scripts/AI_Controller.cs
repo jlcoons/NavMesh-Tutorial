@@ -15,6 +15,9 @@ public class AI_Controller : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        agent.SetDestination(player.transform.position);
+        if (GameController.state.Equals("PLAY"))
+        {
+            agent.SetDestination(player.transform.position);
+        }
 	}
 }

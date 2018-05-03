@@ -21,26 +21,30 @@ public class PlayerController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        frontBack = Input.GetAxis("Vertical") * speed * Time.deltaTime;
-        leftRight = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
-        transform.Translate(leftRight, 0, frontBack);
-
-        lookY -= Input.GetAxis("Mouse Y");
-        lookX += Input.GetAxis("Mouse X");
-        cam.transform.localRotation = Quaternion.AngleAxis(lookY, Vector3.right);
-        transform.localRotation = Quaternion.AngleAxis(lookX, Vector3.up);
-
-        if (Input.GetKeyDown("escape"))
+        if (GameController.state.Equals("PLAY"))
         {
-            Cursor.lockState = CursorLockMode.None;
+            frontBack = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+            leftRight = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+            transform.Translate(leftRight, 0, frontBack);
+
+            lookY -= Input.GetAxis("Mouse Y");
+            lookX += Input.GetAxis("Mouse X");
+            cam.transform.localRotation = Quaternion.AngleAxis(lookY, Vector3.right);
+            transform.localRotation = Quaternion.AngleAxis(lookX, Vector3.up);
         }
-	}
+        else if (GameController.state.Equals("BETWEEN_ROUNDS"))
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                gameController.StartRound();
+            }
+        }
+    }
 
     private void OnTriggerEnter(Collider col)
     {
-        if (col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Enemy" && GameController.state.Equals("PLAY"))
         {
-            print("Collision!");
             gameController.EndRound();
         }
     }

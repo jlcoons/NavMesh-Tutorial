@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
+    public static string state = "PLAY";
     public static GameController instance = null;
     public HUDScript hudScript;
     private static int round = 0;
@@ -30,13 +31,29 @@ public class GameController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        scores[round] += Time.deltaTime;
-        hudScript.IncrementScore(round+1, scores[round]);
+        if (state.Equals("PLAY"))
+        {
+            scores[round] += Time.deltaTime;
+            hudScript.IncrementScore(round + 1, scores[round]);
+        }
 	}
 
     public void EndRound()
     {
-        round++;
+        if (round < 3)
+        {
+            state = "BETWEEN_ROUNDS";
+            round++;
+        }
+        else
+        {
+            state = "GAME_OVER";
+        }
+    }
+
+    public void StartRound()
+    {
         SceneManager.LoadScene("Main");
+        state = "PLAY";
     }
 }
