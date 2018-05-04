@@ -8,6 +8,12 @@ public class GameController : MonoBehaviour {
     public static string state = "PLAY";
     public static GameController instance = null;
     public HUDScript hudScript;
+    public GameObject[] northSpawns;
+    public GameObject[] southSpawns;
+    public GameObject[] eastSpawns;
+    public GameObject[] westSpawns;
+    private GameObject[][] allSpawns = new GameObject[][];
+    private int[] occupied = new int[6];
     private static int round = 0;
     private static float[] scores = new float[3];
 
@@ -26,7 +32,7 @@ public class GameController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        
+        allSpawns = [northSpawns, eastSpawns, southSpawns, westSpawns];
     }
 	
 	// Update is called once per frame
@@ -43,6 +49,7 @@ public class GameController : MonoBehaviour {
         if (round < 3)
         {
             state = "BETWEEN_ROUNDS";
+            hudScript.RoundSummary(round + 1, scores[round]);
             round++;
         }
         else
@@ -53,7 +60,16 @@ public class GameController : MonoBehaviour {
 
     public void StartRound()
     {
-        SceneManager.LoadScene("Main");
+        hudScript.roundSummary.SetActive(false);
+        int enemyWall = Random.Range(0, 4);
+        int playerWall = (enemyWall + 2) % 4;
+        occupied = [0, 0, 0, 0, 0, 0];
+        for (int i = 0; i < 4; i++)
+        {
+            // Spawn enemy at random point on enemy wall
+
+        }
+
         state = "PLAY";
     }
 }

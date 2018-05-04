@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Cursor.lockState = CursorLockMode.Locked;
+        lookX = transform.rotation.y;
 	}
 	
 	// Update is called once per frame

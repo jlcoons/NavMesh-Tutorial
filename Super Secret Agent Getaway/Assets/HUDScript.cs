@@ -7,6 +7,9 @@ public class HUDScript : MonoBehaviour {
 
     public static HUDScript HUDInstance = null;
     public Text scoreText;
+    public Text summaryText;
+    public Text continueText;
+    public GameObject roundSummary;
 
     private void Awake()
     {
@@ -34,5 +37,13 @@ public class HUDScript : MonoBehaviour {
     public void IncrementScore(int round, float time)
     {
         scoreText.text = string.Format("Round {0} Score: {1}", round, (int)time);
+    }
+
+    public void RoundSummary (int round, float time)
+    {
+        summaryText.text = scoreText.text;
+        scoreText.text = "";
+        continueText.text = "Press Space to continue.";
+        roundSummary.SetActive(true);
     }
 }
