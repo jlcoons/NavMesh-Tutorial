@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour {
             cam.transform.localRotation = Quaternion.AngleAxis(lookY, Vector3.right);
             transform.localRotation = Quaternion.AngleAxis(lookX, Vector3.up);
         }
-        else if (GameController.state.Equals("BETWEEN_ROUNDS"))
+        else if (!GameController.state.Equals("PLAY"))
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
